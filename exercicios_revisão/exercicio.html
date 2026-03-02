@@ -1,0 +1,47 @@
+<form action="exercicios_revisão/exercicio.html">
+<fieldset>
+<legend><h1>Formulario Matricula de Curso</h1></legend>
+
+    <form>
+<label for=“pnome">Primeiro nome:</label><br>
+<input type="text" id="pnome" name="pnome"><br>
+<label for=“unome">Último nome:</label><br>
+<input type="text" id="unome" name="unome">
+
+<p>Curso:</p>
+
+<input type="radio" id="TI" name="Curso" value="TI">
+<label for="html">TI</label><br>
+<input type="radio" id="GADS" name="Curso" value="GADS">
+<label for="css">Graduação - Analise e Desenvolvimento de Sistemas</label><br>
+<input type="radio" id="PPW" name="Curso" value="PPW">
+<label for="javascript">Profissionalizante - Programação Web</label>
+<p>Linguagem favorita:</p>
+
+<input type="checkbox" id="lingua1" name="lingua1" value="Java  ">
+<label for="lingua1"> Java</label><br>
+<input type="checkbox" id="lingua2" name="lingua2" value="PHP">
+<label for="lingua2"> PHP</label><br>
+<input type="checkbox" id="lingua3" name="lingua3" value="Phyton">
+<label for="lingua3"> Phyton</label>
+
+<label for="Horario">Escolha o Horario:</label>
+<select name="Horario" id="Horario">
+<option value="Manha">Manha</option>
+<option value="Tarde">Tarde</option>
+<option value="Noite">Noite</option>
+</select>
+
+<label for="Cidade"> Escolha a cidade mais próxima de vc:</label>
+<input list="Cidades" name="Cidade" id="Cidade">
+<datalist id="Cidades">
+<option value="Chapeco">
+<option value="Natal">
+<option value="Rio_de_janeiro">
+<option value="Florianópoles">
+<option value="Joinvile">
+</datalist>
+
+<button>Enviar</button>
+</fieldset>
+</form>
