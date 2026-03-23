@@ -6,18 +6,40 @@
     <title>Super choque</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 <link rel="stylesheet" href="./css/style.css">  
+<script src="js/menu.js"></script>
 </head>
   <body>
 
 <!-- menu navegação-->
+<div id="menu lateral" class="menu lateral">
+    <ul class="menu-itens">
+        <li>
+            <a href="#inicio">Inicio</a>
+            <a href="#historia">Historio</a>
+            <a href="#personagem">Personagem</a>
+            <a href="#Curiosidade">#Curiosidade</a>
+            <a href="#poder">Poder</a>
+        </li>
+    </ul>
+</div>
+
 <nav class="navbar navbar dark bg-primary fixed-top">
+    
     <div class="container">
+        <button class="btn_menu" onclick="showMenu()">
+            <img 
+            id="img menu"
+            src="./site_super_shock/img/icon-hamburger-menu.png" 
+            height="28" 
+            width="28" 
+            alt="menu">
+        </button>
         <a class="navbar-brand mx-auto" href="#">
             <img src="./site_super_shock/img/icone_tela_principal.png" width="40" height="40" alt="Super Choque" class="rounded-circle me-2">
             Super Shock
-
         </a>
     </div>
+    
 </nav>
 
 <!--sessão principal-->
