@@ -1,5 +1,4 @@
 function showMenu() {
-    alert("gewkjoqegijhqgi")
     const menulateral = document.getElementById("menu-lateral")
     const iconmenu = document.getElementById("img-menu")
 
