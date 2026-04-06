@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Contato - Wiki Minecraft</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        body {
+            /* Como estamos na pasta 'paginas', precisamos usar ../ para achar a pasta img */
+            background-image: url('../img/bg.png'); 
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .card {
+            background-color: #ebf2f7 !important;
+            text-emphasis-color: #000000;
+        }
+    </style>
+  </head>
+  <body>
+        <header>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="../index.html">
+                        <img src="../img/Wiki.webp" alt="Logo" width="50" height="50">
+                        Wiki minecraft
+                    </a>
+
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav">
+                            <li class="nav-item"><a class="nav-link" href="../index.html">HOME</a></li>
+                            <li class="nav-item"><a class="nav-link" href="sobre.html">SOBRE</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main class="container-fluid my-4"> 
+            <div class="row">
+                
+                <aside class="col-lg-2 col-md-3 mb-4">
+                    <div class="card text-align: left; h-100 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">Navegação</h5>
+                            <ul class="list-unstyled">
+                                <li><a href="bloco.html" class="text-decoration-none">Blocos</a></li>
+                                <li><a href="ferramenta.html" class="text-decoration-none">Ferramentas</a></li>
+                                <li><a href="estruturas.html" class="text-decoration-none">Estruturas</a></li>
+                                <li><a href="bioma.html" class="text-decoration-none">Biomas</a></li>
+                                <li><a href="formulario.html" class="text-decoration-none">Formulário</a></li>
+                                <li><a href="sobre.html" class="text-decoration-none">Curiosidades</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </aside>
+                
+                <div class="col-lg-10 col-md-9">
+                    <div class="card p-4 shadow-sm">
+                        <h2 class="mb-4 text-center">Entre em Contato Conosco</h2>
+                        <p class="text-center mb-4">Tem alguma dúvida, sugestão ou encontrou um erro na Wiki? Preencha o formulário abaixo!</p>
+
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <form>
+                                    <div class="mb-3">
+                                        <label for="nomeInput" class="form-label">Nome Completo</label>
+                                        <input type="text" class="form-control" id="nomeInput" placeholder="Steve da Silva" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="emailInput" class="form-label">Endereço de E-mail</label>
+                                        <input type="email" class="form-control" id="emailInput" placeholder="steve@craft.com" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="assuntoInput" class="form-label">Assunto</label>
+                                        <select class="form-select" id="assuntoInput">
+                                            <option selected>Selecione um assunto...</option>
+                                            <option value="1">Sugerir novo artigo</option>
+                                            <option value="2">Reportar erro em página</option>
+                                            <option value="3">Parcerias</option>
+                                            <option value="4">Outros</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="mensagemInput" class="form-label">Sua Mensagem</label>
+                                        <textarea class="form-control" id="mensagemInput" rows="4" placeholder="Escreva sua mensagem aqui..." required></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-success w-100">Enviar Mensagem</button>
+                                </form>
+                            </div>
+
+                            <div class="col-md-6">
+                                <h4 class="h5 mb-3">Onde fica a Mojang Studios?</h4>
+                                <p class="small text-muted">A desenvolvedora do Minecraft fica localizada em Estocolmo, na Suécia.</p>
+                                
+                                <div class="ratio ratio-4x3 border rounded">
+                                    <iframe 
+                                        width="100%" 
+                                        height="100%" 
+                                        frameborder="0" 
+                                        scrolling="no" 
+                                        marginheight="0" 
+                                        marginwidth="0" 
+                                        src="https://www.openstreetmap.org/export/embed.html?bbox=18.02644729614258%2C59.31758156641604%2C18.060779571533207%2C59.3259160533319&amp;layer=mapnik&amp;marker=59.32174987621455%2C18.04361343383789">
+                                    </iframe>
+                                </div>
+                                <div class="mt-2 text-center small">
+                                    <a href="https://www.openstreetmap.org/?mlat=59.3217&mlon=18.0436#map=15/59.3217/18.0436" target="_blank">Ver mapa maior</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </main>
+
+        <footer class="bg-dark text-white text-center py-3 mt-auto">
+            <div class="container">
+                <nav class="d-flex justify-content-center gap-4 mb-2">
+                    <a href="#" class="text-white text-decoration-none">Trabalhe Conosco</a>
+                    <a href="contato.html" class="text-white text-decoration-none">Contato</a>
+                </nav>
+                <p class="mb-0 small">© 2026 Wiki Minecraft. Projeto Acadêmico.</p>
+            </div>
+        </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+  </body>
+</html>
