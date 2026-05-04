@@ -41,9 +41,21 @@
         echo $item . "<br>";
     }
     echo"<br>";
-    $carro = ['modelo' => "Mustang", "cor" => "Branco", 'ano' => 2026];
+    $carros = [
+        ['modelo' => "Mustang", "cor" => "Branco", 'ano' => 2026],
+        ['modelo' => "Fusca", "cor" => "Azul", 'ano' => 1996],
+        ['modelo' => "Brasilia", "cor" => "Amarelo", 'ano' => 1969],
+    ];
+    
     echo $carro = ['modelo'] . " - " . $carro['cor'];
         
+    foreach($carros as $carro) {
+        echo "<br>";
+        foreach ($carro as $item) {
+            echo "Modelo: " . $item['modelo'] . "Ano: " . $item ['item'];
+        }
+    }
+
     ?>
 
 </body>
