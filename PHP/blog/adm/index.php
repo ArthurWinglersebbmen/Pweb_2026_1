@@ -1,6 +1,6 @@
 <?php
 
-include_once './PHP/blog/adm/database/db.class.php';
+include_once './database/db.class.php';
 
 $conn = new db("aluno");
 

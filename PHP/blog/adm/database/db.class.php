@@ -1,6 +1,7 @@
 <?php
 
-class db {
+class db
+{
 
     private $host     = 'localhost';
     private $user     = 'root';
@@ -34,24 +35,24 @@ class db {
     }
 
     //INSERT INTO tablea ("campo1"), ("campo2")  VALUES (?, ?);
-    public function store($dados){
+    public function store($dados)
+    {
         $campos = "";
         $marcadores = "";
         $vetorData = [];
-        $sep = "";  
+        $sep = "";
         $sql = "INSERT INTO $this->table_name   ($campos)  VALUES ($marcadores);";
         foreach ($dados as $campo => $valor) {
             $campos .= $sep . $campo;
             $marcadores .= $sep . "?";
             $vetorData[] = $valor;
             $sep = ",";
-
         }
-    try{
-        $st = $this->conn->prepare($sql);
-        $st->execute(params: $vetorData);
-    }catch(PDOException $e) {
-        var_dump("Erro ao inserir", $e->getMessage());
-    }  
+        try {
+            $st = $this->conn->prepare($sql);
+            $st->execute(params: $vetorData);
+        } catch (PDOException $e) {
+            var_dump("Erro ao inserir", $e->getMessage());
+        }
     }
 }
