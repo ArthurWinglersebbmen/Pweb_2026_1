@@ -29,7 +29,7 @@
         echo $item . "<br>";
     }
         
-    $nomes = ["jack", "gudurus", "draken", "mamacp" ];
+    $nomes = ["jack", "gudurus", "draken", "mamac0" ];
 
         
     echo"<br>"; 
@@ -47,7 +47,7 @@
         ['modelo' => "Brasilia", "cor" => "Amarelo", 'ano' => 1969],
     ];
     
-    echo $carro = ['modelo'] . " - " . $carro['cor'];
+    echo $carro = ["string"] . " - " . $carro['cor'];
         
     foreach($carros as $carro) {
         echo "<br>";
