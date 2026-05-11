@@ -12,7 +12,7 @@ if(!empty($_POST)){
 ?>
 
 <div class="col">
-    <form action="resultadoFormAluno.php" method="post">
+    <form action="usuarioform.php" method="post">
         <div class="col-6">
             <label for="nome">Nome: </label>
             <input type="text" name="nomeAluno" class="form-control" maxlength="35" required> 
