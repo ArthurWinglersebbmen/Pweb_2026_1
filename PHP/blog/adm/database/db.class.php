@@ -7,7 +7,7 @@ class db
     private $user     = 'root';
     private $password = '';
     private $port     = '3306';
-    private $dbname   = 'db_pweb1_202x_x';
+    private $dbname   = 'db_pweb1_2026_1';
     private $table_name;
     private $conn; // conexão fica guardada para reutilizar
 
@@ -41,14 +41,15 @@ class db
         $marcadores = "";
         $vetorData = [];
         $sep = "";
-        $sql = "INSERT INTO $this->table_name   ($campos)  VALUES ($marcadores);";
         foreach ($dados as $campo => $valor) {
             $campos .= $sep . $campo;
             $marcadores .= $sep . "?";
             $vetorData[] = $valor;
             $sep = ",";
         }
+        $sql = "INSERT INTO $this->table_name   ($campos)  VALUES ($marcadores);";
         try {
+            //var_dump($sql);
             $st = $this->conn->prepare($sql);
             $st->execute(params: $vetorData);
         } catch (PDOException $e) {

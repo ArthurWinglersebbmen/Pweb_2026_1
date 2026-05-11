@@ -2,7 +2,7 @@
 
 include_once './database/db.class.php';
 
-$conn = new db("aluno");
+$conn = new db("usuario");
 
 $dados = [
     'nome' => "arthur",
