@@ -5,7 +5,9 @@ include_once "../database/db.class.php";
 
 $db = new db ('usuario');
 
-if(!empty($_POST)){
+if(!empty($_GET)){
+    //var_dump($_POST);
+    //exit;
     $db->store($_POST);
 }
 
@@ -30,6 +32,7 @@ if(!empty($_POST)){
 
         <div class="col mt-4">
             <button type="submit" class="btn btn-success">Salvar</button>
+            <a href="./UsuarioList.php" class = "btn btn-primary">Voltar</a>
         </div>
     </form>
 </div>
