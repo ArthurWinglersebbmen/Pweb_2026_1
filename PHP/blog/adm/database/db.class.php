@@ -66,4 +66,14 @@ class db
             var_dump("Erro ao inserir", $e->getMessage());
         }
     }
+    public function search ($dados)
+    {
+        $campo = $dados['tipo'];
+        $valor = $dados['valor'];
+
+        $sql = "SELECT * FROM $this->table_name WHERE $campo LIKE";
+        $st = $this->conn->prepare($sql);
+        $st->execute(["%$valor%"]);
+        
+    }
 }
