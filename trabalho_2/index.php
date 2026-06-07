@@ -1,14 +1,30 @@
 <?php
 require_once 'header.php';
+require_once 'db.class.php'; // <-- 1. Incluímos a classe de banco de dados
 
-// Lógica inicial para bater com a exigência do professor antes de conectarmos ao banco
+// Lógica atualizada para validar o login no Banco de Dados com PDO
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $login = $_POST['login'] ?? '';
-    $senha = $_POST['senha'] ?? '';
+    $login = trim($_POST['login'] ?? '');
+    $senha = trim($_POST['senha'] ?? '');
     
-    // Login padrão: admin | 123
-    if ($login === 'admin' && $senha === '123') {
+    // 2. Instancia a conexão com o banco
+    $database = new Database();
+    $db = $database->getConnection();
+    
+    // 3. Prepara a consulta para buscar o usuário na tabela
+    $stmt = $db->prepare("SELECT id, nome FROM usuario WHERE login = :login AND senha = :senha");
+    $stmt->bindParam(':login', $login);
+    $stmt->bindParam(':senha', $senha);
+    $stmt->execute();
+    
+    // 4. Se a consulta retornar 1 linha, o login está correto
+    if ($stmt->rowCount() > 0) {
+        $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        // Salva as informações na sessão
         $_SESSION['logado'] = true;
+        $_SESSION['nome_usuario'] = $usuario['nome']; // Podemos guardar o nome para usar depois
+        
         header("Location: index.php"); // Recarrega a página para abrir o painel
         exit;
     } else {
@@ -47,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <?php else: ?>
     <div class="text-center mt-4">
-        <h2 class="mb-3">Bem-vindo ao Sis Frota</h2>
+        <h2 class="mb-3">Bem-vindo(a), <?= htmlspecialchars($_SESSION['nome_usuario']) ?>!</h2>
         <p class="text-muted">Selecione uma opção no menu superior ou nos atalhos abaixo.</p>
         <hr class="my-4">
         
