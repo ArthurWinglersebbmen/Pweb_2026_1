@@ -16,17 +16,17 @@ if (session_status() === PHP_SESSION_NONE) {
     <?php if(isset($_SESSION['logado']) && $_SESSION['logado'] === true): ?>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4 shadow-sm">
         <div class="container">
-            <a class="navbar-brand" href="/PWEB_1_FROTA/index.php">Sis Frota</a>
+            <a class="navbar-brand" href="/trabalho_2/index.php">Sis Frota</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="/PWEB_1_FROTA/admin/veiculo/VeiculoList.php">Veículos</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/PWEB_1_FROTA/admin/motorista/MotoristaList.php">Motoristas</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/PWEB_1_FROTA/admin/manutencao/ManutencaoList.php">Manutenções</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/PWEB_1_FROTA/admin/usuario/UsuarioList.php">Usuários</a></li>
-                    <li class="nav-item"><a class="nav-link text-danger" href="/PWEB_1_FROTA/logout.php">Sair</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/trabalho_2/admin/veiculo/VeiculoList.php">Veículos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/trabalho_2/admin/motorista/MotoristaList.php">Motoristas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/trabalho_2/admin/manutencao/ManutencaoList.php">Manutenções</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/trabalho_2/admin/usuario/UsuarioList.php">Usuários</a></li>
+                    <li class="nav-item"><a class="nav-link text-danger" href="/trabalho_2/logout.php">Sair</a></li>
                 </ul>
             </div>
         </div>
