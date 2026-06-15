@@ -36,14 +36,6 @@ CREATE TABLE IF NOT EXISTS motorista (
 -- Tabela do CRUD 3: Manutenções
 CREATE TABLE IF NOT EXISTS manutencao (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    data_servico DATE NOT NULL,
-    quilometragem_atual INT NOT NULL,
-    descricao_pecas TEXT NOT NULL,
-    custo_total DECIMAL(10, 2) NOT NULL
-);
-
-CREATE TABLE IF NOT EXISTS manutencao (
-    id INT AUTO_INCREMENT PRIMARY KEY,
     veiculo_id INT NOT NULL,
     descricao VARCHAR(255) NOT NULL,
     data_manutencao DATE NOT NULL,
