@@ -9,58 +9,62 @@ require_once '../../db.class.php';
 $database = new Database();
 $db = $database->getConnection();
 
-$id = isset($_GET['id']) ? $_GET['id'] : '';
-$data_servico = '';
-$quilometragem_atual = '';
-$descricao_pecas = '';
-$custo_total = '';
+// --- 1. BUSCA TODOS OS VEÍCULOS PARA PREENCHER O SELECT DO FORMULÁRIO ---
+$stmtVeiculos = $db->prepare("SELECT id, placa, modelo FROM veiculo ORDER BY modelo ASC");
+$stmtVeiculos->execute();
+$veiculos = $stmtVeiculos->fetchAll(PDO::FETCH_ASSOC);
 
-// Se possui ID na URL, busca os dados para preencher o formulário (Modo Edição)
+$id = isset($_GET['id']) ? $_GET['id'] : '';
+$veiculo_id = '';
+$descricao = '';
+$data_manutencao = '';
+$valor = '';
+
+// Se for edição, busca os dados da manutenção
 if (!empty($id)) {
     $stmt = $db->prepare("SELECT * FROM manutencao WHERE id = :id");
     $stmt->bindParam(':id', $id);
     $stmt->execute();
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
     if ($row) {
-        $data_servico = $row['data_servico'];
-        $quilometragem_atual = $row['quilometragem_atual'];
-        $descricao_pecas = $row['descricao_pecas'];
-        $custo_total = $row['custo_total'];
+        $veiculo_id = $row['veiculo_id'];
+        $descricao = $row['descricao'];
+        $data_manutencao = $row['data_manutencao'];
+        $valor = $row['valor'];
     }
 }
 
-// Processa o envio do formulário (INSERT ou UPDATE)
+// Processa o envio do formulário
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $data_servico = $_POST['data_servico'];
-    $quilometragem_atual = $_POST['quilometragem_atual'];
-    $descricao_pecas = $_POST['descricao_pecas'];
-    $custo_total = str_replace(',', '.', $_POST['custo_total']); // Troca vírgula por ponto para o MySQL
+    $veiculo_id = $_POST['veiculo_id'];
+    $descricao = trim($_POST['descricao']);
+    $data_manutencao = $_POST['data_manutencao'];
+    $valor = $_POST['valor'];
 
-    // Validação de campos obrigatórios no back-end[cite: 1]
-    if (!empty($data_servico) && !empty($quilometragem_atual) && !empty($descricao_pecas) && !empty($custo_total)) {
-        
-        if (empty($id)) {
-            // Nova Manutenção
-            $stmt = $db->prepare("INSERT INTO manutencao (data_servico, quilometragem_atual, descricao_pecas, custo_total) VALUES (:data_servico, :quilometragem_atual, :descricao_pecas, :custo_total)");
-        } else {
-            // Atualizar Manutenção Existente
-            $stmt = $db->prepare("UPDATE manutencao SET data_servico = :data_servico, quilometragem_atual = :quilometragem_atual, descricao_pecas = :descricao_pecas, custo_total = :custo_total WHERE id = :id");
-            $stmt->bindParam(':id', $id);
-        }
-        
-        $stmt->bindParam(':data_servico', $data_servico);
-        $stmt->bindParam(':quilometragem_atual', $quilometragem_atual);
-        $stmt->bindParam(':descricao_pecas', $descricao_pecas);
-        $stmt->bindParam(':custo_total', $custo_total);
-        
-        if ($stmt->execute()) {
-            header("Location: ManutencaoList.php");
-            exit;
-        } else {
-            $erro = "Erro ao salvar os dados.";
+    // Validação de campos obrigatórios
+    if (!empty($veiculo_id) && !empty($descricao) && !empty($data_manutencao) && !empty($valor)) {
+        try {
+            if (empty($id)) {
+                $stmt = $db->prepare("INSERT INTO manutencao (veiculo_id, descricao, data_manutencao, valor) VALUES (:veiculo_id, :descricao, :data_manutencao, :valor)");
+            } else {
+                $stmt = $db->prepare("UPDATE manutencao SET veiculo_id = :veiculo_id, descricao = :descricao, data_manutencao = :data_manutencao, valor = :valor WHERE id = :id");
+                $stmt->bindParam(':id', $id);
+            }
+            
+            $stmt->bindParam(':veiculo_id', $veiculo_id);
+            $stmt->bindParam(':descricao', $descricao);
+            $stmt->bindParam(':data_manutencao', $data_manutencao);
+            $stmt->bindParam(':valor', $valor);
+            
+            if ($stmt->execute()) {
+                header("Location: ManutencaoList.php");
+                exit;
+            }
+        } catch(PDOException $e) {
+            $erro = "Erro ao salvar os dados: " . $e->getMessage();
         }
     } else {
-        $erro = "Preencha todos os campos obrigatórios!";
+        $erro = "Por favor, preencha todos os campos obrigatórios!";
     }
 }
 
@@ -80,33 +84,43 @@ require_once '../../header.php';
                 <?php endif; ?>
 
                 <form method="POST" action="">
-                    <div class="row mb-3">
-                        <div class="col-md-6">
-                            <label class="form-label">Data do Serviço *</label>
-                            <!-- Validação front-end com required[cite: 1] -->
-                            <input type="date" name="data_servico" class="form-control" value="<?= htmlspecialchars($data_servico) ?>" required>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Quilometragem Atual *</label>
-                            <input type="number" name="quilometragem_atual" class="form-control" placeholder="Ex: 45000" value="<?= htmlspecialchars($quilometragem_atual) ?>" required>
-                        </div>
-                    </div>
                     
                     <div class="mb-3">
-                        <label class="form-label">Peças e Descrição do Serviço *</label>
-                        <textarea name="descricao_pecas" class="form-control" rows="3" placeholder="Descreva os serviços feitos e as peças trocadas..." required><?= htmlspecialchars($descricao_pecas) ?></textarea>
+                        <label class="form-label">Selecione o Veículo *</label>
+                        <select name="veiculo_id" class="form-select" required>
+                            <option value="" disabled <?= empty($veiculo_id) ? 'selected' : '' ?>>Selecione o veículo...</option>
+                            
+                            <?php foreach($veiculos as $v): ?>
+                                <option value="<?= $v['id'] ?>" <?= $veiculo_id == $v['id'] ? 'selected' : '' ?>>
+                                    <?= htmlspecialchars($v['modelo']) ?> (Placa: <?= htmlspecialchars($v['placa']) ?>)
+                                </option>
+                            <?php endforeach; ?>
+                            
+                        </select>
+                        <?php if(count($veiculos) == 0): ?>
+                            <small class="text-danger">Atenção: Nenhum veículo cadastrado no sistema. Cadastre um veículo primeiro!</small>
+                        <?php endif; ?>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Descrição do Serviço / Peças Trocadas *</label>
+                        <input type="text" name="descricao" class="form-control" placeholder="Ex: Troca de óleo e filtro" value="<?= htmlspecialchars($descricao) ?>" required>
                     </div>
 
                     <div class="row mb-4">
-                        <div class="col-md-4">
-                            <label class="form-label">Custo Total (R$) *</label>
-                            <input type="text" name="custo_total" class="form-control" placeholder="0.00" value="<?= htmlspecialchars($custo_total) ?>" required>
+                        <div class="col-md-6">
+                            <label class="form-label">Data da Manutenção *</label>
+                            <input type="date" name="data_manutencao" class="form-control" value="<?= htmlspecialchars($data_manutencao) ?>" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Valor do Serviço (R$) *</label>
+                            <input type="number" name="valor" step="0.01" class="form-control" placeholder="0.00" value="<?= htmlspecialchars($valor) ?>" required>
                         </div>
                     </div>
 
-                    <div class="d-flex justify-content-between">
+                    <div class="d-flex justify-content-between mt-4">
                         <a href="ManutencaoList.php" class="btn btn-secondary">Voltar</a>
-                        <button type="submit" class="btn btn-success">Salvar Manutenção</button>
+                        <button type="submit" class="btn btn-success" <?= count($veiculos) == 0 ? 'disabled' : '' ?>>Salvar Registro</button>
                     </div>
                 </form>
 
